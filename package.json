@@ -1,0 +1,29 @@
+{
+  "name": "codecamp",
+  "version": "1.0.0",
+  "description": "Repository for React testing showcase",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server --inline --no-info",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Martin Horský <martin.horsky@email.cz>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.5",
+    "babel-polyfill": "^6.13.0",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-1": "^6.13.0",
+    "bootstrap": "^3.3.7",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
