@@ -1,39 +1,37 @@
 import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class AddLabelForm extends Component {
+import { changeInputValue, submitForm } from './actions';
+
+export class AddLabelForm extends Component {
 
 	static propTypes = {
-		onSubmit: PropTypes.func.isRequired,
+		inputValue: PropTypes.string.isRequired,
+
+		onFormSubmit: PropTypes.func.isRequired,
+		onInputValueChange: PropTypes.func.isRequired,
 	};
 
 	constructor(props) {
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
-		this.state = {
-			inputValue: '',
-		}
 	}
 
 	handleSubmit(e) {
 		e.preventDefault();
-		const { onSubmit } = this.props;
-		const { inputValue } = this.state;
-		onSubmit(inputValue);
-		this.setState({
-			inputValue: '',
-		});
+		const { onFormSubmit, inputValue } = this.props;
+		onFormSubmit(inputValue);
 	}
 
 	handleInputChange(e) {
 		const value = e.target.value;
-		this.setState({
-			inputValue: value,
-		});
+		const { onInputValueChange } = this.props;
+		onInputValueChange(value);
 	}
 
 	render() {
-		const { inputValue } = this.state;
+		const { inputValue } = this.props;
 		return (
 			<div>
 				<form onSubmit={this.handleSubmit}>
@@ -48,3 +46,13 @@ export default class AddLabelForm extends Component {
 		);
 	}
 }
+
+export default connect(
+	(state) => ({
+		inputValue: state.input,
+	}),
+	{
+		onFormSubmit: submitForm,
+		onInputValueChange: changeInputValue,
+	}
+)(AddLabelForm);

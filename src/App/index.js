@@ -1,36 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import AddLabelForm from './AddLabelForm';
 import Labels from './Labels';
 
-class App extends Component {
-
-	constructor(props) {
-		super(props);
-		this.handleAddLabel = this.handleAddLabel.bind(this);
-		this.state = {
-			labels: ['rio', 'sport'],
-		}
-	}
-
-	handleAddLabel(label) {
-		this.setState({
-			labels: [
-				...this.state.labels,
-				label,
-			],
-		});
-	}
+export class App extends Component {
 
 	render() {
-		const { labels } = this.state;
+		const { labels } = this.props;
 		return (
 			<div className="container">
 				<header>
 					<h2>Labeler</h2>
 				</header>
 				<div>
-					<AddLabelForm onSubmit={this.handleAddLabel} />
+					<AddLabelForm />
 				</div>
 				<div>
 					<Labels labels={labels} />
@@ -40,4 +24,8 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default connect(
+	(state) => ({
+		labels: state.labels,
+	})
+)(App);

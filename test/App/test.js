@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { spy } from 'sinon';
 
-import App from '../../src/App';
+import { App } from '../../src/App';
 import AddLabelForm from '../../src/App/AddLabelForm';
 import Labels from '../../src/App/Labels';
 
