@@ -4,23 +4,70 @@
 
 Testování Reactu si ukážeme na jednoduché aplikaci nezvané Labeler (Štítkovač). Aplikace neumožňuje nic jiného než přidávání štítků. Obsahuje jedno pole pro zadání textu, odesílací tlačítko a seznam štítků, které byly v aplikaci přidány.
 
-## Úkol 1
+## Úkol 2
 
-Nainstalujte závislosti a spusťte aplikaci
+Nainstalujte potřebné knihovny pro testování Reactu:
+- spouštěč testů [Mocha]: https://mochajs.org/
+- nástroj pro assert [Chai]: http://chaijs.com/
+- knihovnu pro mockování [Sinon]: http://sinonjs.org/
+- knihovnu [Enzyme]: http://airbnb.io/enzyme/ pro vykreslování komponent: 
 
-## Postup 1
+Přidejte příkaz do `package.json` pro spuštění testů
 
-### Instalace
+Vyzkoušejte správné nastavení spuštěním připraveného testu React komponenty `<Label />`
+
+## Postup 2
+
+### Knihovny 
+
+Přepínač `--save` zajistí uložení závislosti do `package.json`
+
+#### Mocha
 
 ```
-npm install
+npm install mocha --save
 ```
 
-### Spuštění
+#### Chai
 
 ```
-npm start
+npm install chai --save
 ```
 
-Bude dostupná na adrese http://localhost:8080
+#### Sinon
 
+```
+npm install sinon --save
+```
+
+#### Enzyme
+
+```
+npm install enzyme --save
+```
+
+Enzyme potřebuje ke svému fungování `react-addons-test-utils`, oficiální React přídavky pro testování
+
+```
+npm install react-addons-test-utils --save
+```
+
+### Příkaz pro spuštění
+
+Do `package.json` v sekci `scripts` nahradit příkaz `test` následujícím:
+
+```
+"test": "mocha --require babel-register --require ignore-styles --recursive"
+```
+
+Test obsahuje dvě závislosti, které nainstalujeme stejným způsobem jako předchozí knihovny
+
+```
+npm install babel-register ignore-styles --save
+```
+
+### Spuštění testů
+
+```
+npm test
+```
