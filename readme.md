@@ -4,70 +4,61 @@
 
 Testování Reactu si ukážeme na jednoduché aplikaci nezvané Labeler (Štítkovač). Aplikace neumožňuje nic jiného než přidávání štítků. Obsahuje jedno pole pro zadání textu, odesílací tlačítko a seznam štítků, které byly v aplikaci přidány.
 
-## Úkol 2
+## Úkol 3
 
-Nainstalujte potřebné knihovny pro testování Reactu:
-- spouštěč testů [Mocha]: https://mochajs.org/
-- nástroj pro assert [Chai]: http://chaijs.com/
-- knihovnu pro mockování [Sinon]: http://sinonjs.org/
-- knihovnu [Enzyme]: http://airbnb.io/enzyme/ pro vykreslování komponent: 
-
-Přidejte příkaz do `package.json` pro spuštění testů
-
-Vyzkoušejte správné nastavení spuštěním připraveného testu React komponenty `<Label />`
-
-## Postup 2
-
-### Knihovny 
-
-Přepínač `--save` zajistí uložení závislosti do `package.json`
-
-#### Mocha
+Vytvořte testy dalších React komponent. Inspirací může být následující výstup.
 
 ```
-npm install mocha --save
+<AddLabelForm />                                  
+  √ changes input value on change event           
+  √ uses handleInputChange                        
+  √ calls onSubmit prop when submitted            
+  √ cleans input on submit                        
+                                                  
+<App />                                           
+  √ should contain <AddLabelForm /> components    
+  √ should contain <Labels /> components          
+                                                  
+<Label label="bar" />                             
+  √ has class "label"                             
+  √ text is "bar"                                 
+                                                  
+<Labels labels={['foo', 'bar']} />                
+  √ should contain two <Label />                  
+                                                  
+                                                  
+9 passing (370ms)                                 
 ```
 
-#### Chai
+K testování volání metod využijte `spy` z knihovny `sinon`. Pro testování komponent využívejte `shallow` z `enzyme`, která izoluje komponentu a nepotřebuje  reálný `document`.
+
+## Postup 3
+
+Vytvořte postupně testy komponent:
+
+- `test/App/Labels/test.js`
+- `test/App/AddLabelForm/test.js`
+- `test/App/test.js`
+
+Během vytváření je možné spustit `npm` příkaz `test` v takzvaném *watch mode* a ledovat tak testy periodicky.
 
 ```
-npm install chai --save
+npm test -- -w
 ```
 
-#### Sinon
+Příklad testu s použítím funkce `spy`:
 
 ```
-npm install sinon --save
-```
+describe(`<AddLabelForm />`, () => {
+	it('uses handleInputChange', () => {
+		const handleInputChange = spy(AddLabelForm.prototype, 'handleInputChange');
 
-#### Enzyme
+		const wrapper = shallow(<AddLabelForm onSubmit={() => undefined} />);
 
-```
-npm install enzyme --save
-```
+		wrapper.find('input').simulate('change', { target: { value: 'a' } });
+		wrapper.find('input').simulate('change', { target: { value: 'ab' } });
 
-Enzyme potřebuje ke svému fungování `react-addons-test-utils`, oficiální React přídavky pro testování
-
-```
-npm install react-addons-test-utils --save
-```
-
-### Příkaz pro spuštění
-
-Do `package.json` v sekci `scripts` nahradit příkaz `test` následujícím:
-
-```
-"test": "mocha --require babel-register --require ignore-styles --recursive"
-```
-
-Test obsahuje dvě závislosti, které nainstalujeme stejným způsobem jako předchozí knihovny
-
-```
-npm install babel-register ignore-styles --save
-```
-
-### Spuštění testů
-
-```
-npm test
+		expect(handleInputChange.callCount).to.equal(2);
+	});
+});
 ```
