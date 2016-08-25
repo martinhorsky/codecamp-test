@@ -10,7 +10,7 @@ class App extends Component {
 		this.handleAddLabel = this.handleAddLabel.bind(this);
 		this.state = {
 			labels: ['rio', 'sport'],
-		}
+		};
 	}
 
 	handleAddLabel(label) {

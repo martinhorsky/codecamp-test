@@ -12,7 +12,7 @@ export default class AddLabelForm extends Component {
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.state = {
 			inputValue: '',
-		}
+		};
 	}
 
 	handleSubmit(e) {

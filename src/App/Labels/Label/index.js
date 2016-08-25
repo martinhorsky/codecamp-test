@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import './styles.css';
 
 export default class Label extends Component {
+
+	static propTypes = {
+		label: PropTypes.string.isRequired,
+	};
+
 	render() {
 		const { label } = this.props;
 		return (
@@ -11,4 +16,5 @@ export default class Label extends Component {
 			</div>
 		);
 	}
+
 }
